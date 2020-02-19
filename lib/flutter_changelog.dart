@@ -26,7 +26,7 @@ class ChangeLogScreen extends StatelessWidget {
     return Scaffold(
       appBar: showAppBar
           ? AppBar(
-              title: title,
+              title: title ?? Text(""),
               leading: IconButton(
                 icon: Icon(Icons.close),
                 onPressed: () => Navigator.of(context).pop(),
