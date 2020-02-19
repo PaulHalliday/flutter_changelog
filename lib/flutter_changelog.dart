@@ -14,12 +14,12 @@ class ChangeLogScreen extends StatelessWidget {
 
   final ScrollController scrollController = ScrollController();
 
-  const ChangeLogScreen({
+  ChangeLogScreen({
     this.title,
     this.markdownData,
     this.showAppBar = true,
     this.markdownFilePath,
-  })
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +34,26 @@ class ChangeLogScreen extends StatelessWidget {
             )
           : null,
       body: SafeArea(
-          child: markdownFilePath != null
-              ? FutureBuilder(
-                  future: rootBundle.loadString(markdownFilePath),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.hasData) {
-                      return Markdown(
-                        controller: scrollController,
-                        data: snapshot.data,
-                      );
-                    }
+        child: markdownFilePath != null
+            ? FutureBuilder(
+                future: rootBundle.loadString(markdownFilePath),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    return Markdown(
+                      controller: scrollController,
+                      data: snapshot.data,
+                    );
+                  }
 
-                    return Center(child: CircularProgressIndicator());
-                  },
-                )
-              : Markdown(
-                  controller: scrollController,
-                  data: markdownData,
-                )),
+                  return Center(child: CircularProgressIndicator());
+                },
+              )
+            : Markdown(
+                controller: scrollController,
+                data: markdownData,
+              ),
+      ),
     );
   }
 }
