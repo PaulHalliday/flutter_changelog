@@ -9,22 +9,30 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class ChangeLogScreen extends StatelessWidget {
   final Widget title;
   final String markdownData;
+  final bool showAppBar;
   final String markdownFilePath;
 
   final ScrollController scrollController = ScrollController();
 
-  ChangeLogScreen({
-    @required this.title,
+  const ChangeLogScreen({
+    this.title,
     this.markdownData,
+    this.showAppBar = true,
     this.markdownFilePath,
-  }) : assert(title != null);
+  })
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: title,
-      ),
+      appBar: showAppBar
+          ? AppBar(
+              title: title,
+              leading: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            )
+          : null,
       body: SafeArea(
           child: markdownFilePath != null
               ? FutureBuilder(
